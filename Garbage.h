@@ -7,11 +7,12 @@
 // This is the class containing a regular garbage's business logic.
 
 #include <string>
-
+#include <iostream>
+enum garbageType{GARBAGE, PAPER, PLASTIC, METAL, BOTTLECUP};
 class Garbage {
 public:
-    Garbage(const std::string &name = "defaultGarbage"): name(name){
-        type = 1;
+    Garbage(const std::string &name = "defaultGarbage"): name(name) {
+        type = garbageType::GARBAGE;
     };
     int getType() { return  type; }
 protected:

@@ -12,7 +12,8 @@
 class PlasticGarbage: public Garbage {
 public:
     PlasticGarbage(const std::string &name = "defaultPlastic"): Garbage(name){
-        type = 3;
+        type = garbageType::PLASTIC;
+        isClean = false;
     }
     void clean() {isClean = true;}
     bool isPlasticClean(){ return isClean; }

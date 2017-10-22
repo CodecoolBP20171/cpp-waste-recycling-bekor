@@ -12,6 +12,6 @@ set(SOURCE_FILES
         PlasticGarbage.cpp PlasticGarbage.h
         DustbinContentError.hpp
         Dustbin.cpp Dustbin.h
-        DustbinTests.hpp Dustbin9000.cpp Dustbin9000.h MetalGarbage.cpp MetalGarbage.h)
+        DustbinTests.hpp Dustbin9000.cpp Dustbin9000.h MetalGarbage.cpp MetalGarbage.h BottleCupGarbage.cpp BottleCupGarbage.h BottleCapException.hpp)
 
 add_executable(cpp_waste_recycling_bekor ${SOURCE_FILES})

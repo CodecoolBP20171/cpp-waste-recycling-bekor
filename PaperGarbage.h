@@ -11,7 +11,7 @@
 class PaperGarbage: public Garbage {
 public:
     PaperGarbage(const std::string &name = "defaultPaper") : Garbage(name){
-        type = 2;
+        type = garbageType::PAPER;
         isSqueezed = false;
     }
     void squeeze(){isSqueezed = true;}

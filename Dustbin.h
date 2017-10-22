@@ -6,7 +6,6 @@
 #define CPP_WASTE_RECYCLING_BEKOR_DUSTBIN_H
 
 #include <memory>
-#include <iostream>
 
 #include "Garbage.h"
 #include "PaperGarbage.h"
@@ -15,17 +14,22 @@
 
 class Dustbin {
 public:
-    Dustbin(int type, std::string &color, const unsigned size = 10);
+    Dustbin(std::string &color, const unsigned sizeGarb = 10, const unsigned sizePaper = 10, const unsigned sizePlastic = 10);
     virtual ~Dustbin();
     size_t sizeGarbage() const { return garbageEndPointer - garbage; }
-    size_t spaceLeft() const { return garbageEndPointer - garbagePointer; }
-//    size_t sizePaperGarbage() const { return paperGarbageEndPointer - paperGarbage; }
-//    size_t sizePlasticGarbage() const { return plasticGarbageEndPointer - plasticGarbage; }
+    size_t spaceLeftGarbage() const { return garbageEndPointer - garbagePointer; }
+
+    size_t sizePaperGarbage() const { return paperGarbageEndPointer - paperGarbage; }
+    size_t spaceLeftPaper() const { return garbageEndPointer - garbagePointer; }
+
+    size_t sizePlasticGarbage() const { return plasticGarbageEndPointer - plasticGarbage; }
+    size_t spaceLeftPlastic() const { return garbageEndPointer - garbagePointer; }
+
     void throwOutGarbage(Garbage garbage);
     void throwOutPaperGarbage(PaperGarbage paperGarbage);
     void throwOutPlasticGarbage(PlasticGarbage plasticGarbage);
+
     void emptyContents();
-    std::string getColor() { return color; }
 
 private:
     std::string color;
@@ -33,13 +37,13 @@ private:
     Garbage* garbagePointer;
     Garbage* garbageEndPointer;
 
-//    PaperGarbage* paperGarbage;
-//    PaperGarbage* paperGarbagePointer;
-//    PaperGarbage* paperGarbageEndPointer;
-//
-//    PlasticGarbage* plasticGarbage;
-//    PlasticGarbage* plasticGarbagePointer;
-//    PlasticGarbage* plasticGarbageEndPointer;
+    PaperGarbage* paperGarbage;
+    PaperGarbage* paperGarbagePointer;
+    PaperGarbage* paperGarbageEndPointer;
+
+    PlasticGarbage* plasticGarbage;
+    PlasticGarbage* plasticGarbagePointer;
+    PlasticGarbage* plasticGarbageEndPointer;
 };
 
 

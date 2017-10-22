@@ -7,14 +7,12 @@
 
 #include "Garbage.h"
 
-class MetalGarbage {
+class MetalGarbage: public Garbage {
 public:
     MetalGarbage(const std::string &name = "defaultGarbage"): name(name){
-        type = 4;
+        type = 3;
     };
-    int getType() { return  type; }
 protected:
-    int type;
     std::string name;
 };
 

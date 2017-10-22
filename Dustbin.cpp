@@ -4,51 +4,50 @@
 
 #include "Dustbin.h"
 
-Dustbin::Dustbin(int type, std::string &color, const unsigned size)
-{
-    std::cout << "Garbage type: " << type << std::endl;
-    color = color;
+Dustbin::Dustbin(std::string &color, const unsigned int sizeGarb, const unsigned int sizePaper,
+                 const unsigned int sizePlastic) : color(color){
     garbage = nullptr;
     try {
-        garbage = new Garbage[size];
+        garbage = new Garbage[sizeGarb];
         garbagePointer = garbage;
-        garbageEndPointer = garbagePointer + size;
+        garbageEndPointer = garbagePointer + sizeGarb;
 
     } catch (std::bad_alloc&){
         garbagePointer = nullptr;
         garbageEndPointer = nullptr;
     }
-//
-//    paperGarbage = nullptr;
-//    try {
-//        paperGarbage = new PaperGarbage[sizePaperGarbage];
-//        paperGarbagePointer = paperGarbage;
-//        paperGarbageEndPointer = paperGarbagePointer + sizePaperGarbage;
-//
-//    } catch (std::bad_alloc&){
-//        paperGarbagePointer = nullptr;
-//        paperGarbageEndPointer = nullptr;
-//    }
-//
-//    plasticGarbage = nullptr;
-//    try {
-//        plasticGarbage = new PlasticGarbage[sizeGarbage];
-//        garbagePointer = plasticGarbage;
-//        garbageEndPointer = garbagePointer + sizeGarbage;
-//
-//    } catch (std::bad_alloc&){
-//        garbagePointer = nullptr;
-//        garbageEndPointer = nullptr;
-//    }
+
+    paperGarbage = nullptr;
+    try {
+        paperGarbage = new PaperGarbage[sizePaper];
+        paperGarbagePointer = paperGarbage;
+        paperGarbageEndPointer = paperGarbagePointer + sizePaper;
+
+    } catch (std::bad_alloc&){
+        paperGarbagePointer = nullptr;
+        paperGarbageEndPointer = nullptr;
+    }
+
+    plasticGarbage = nullptr;
+    try {
+        plasticGarbage = new PlasticGarbage[sizePlastic];
+        plasticGarbagePointer = plasticGarbage;
+        plasticGarbageEndPointer = plasticGarbage + sizePlastic;
+
+    } catch (std::bad_alloc&){
+        plasticGarbagePointer = nullptr;
+        plasticGarbageEndPointer = nullptr;
+    }
 }
 
 Dustbin::~Dustbin() {
     delete[] garbage;
-    std::cout << ">  ~Dustbin called!" << std::endl;
+    delete[] paperGarbage;
+    delete[] plasticGarbage;
 }
 
 void Dustbin::throwOutGarbage(Garbage garbage) {
-    if(garbagePointer < garbageEndPointer && garbage.getType() == 1) {
+    if(garbagePointer < garbageEndPointer && garbage.getType() == 0) {
         *garbagePointer = garbage;
         ++garbagePointer;
         return;
@@ -57,15 +56,12 @@ void Dustbin::throwOutGarbage(Garbage garbage) {
 }
 
 void Dustbin::throwOutPaperGarbage(PaperGarbage paperGarbage) {
-    if(!paperGarbage.isPaperSqueezed() || paperGarbage.getType() != 2){
+    if(!paperGarbage.isPaperSqueezed() || paperGarbage.getType() != 1){
         throw DustbinContentError();
     }
-    if(garbagePointer < garbageEndPointer) {
-        /*  In this example I do not have to bother with the extra parameter from PaperGarbage class
-            If I want to extend the PaperGarbage then it is possible I have to modify this part too.
-         */
-        *garbagePointer = paperGarbage;
-        ++garbagePointer;
+    if(paperGarbagePointer < paperGarbageEndPointer) {
+        *paperGarbagePointer = paperGarbage;
+        ++paperGarbagePointer;
         return;
     }
     throw DustbinContentError();
@@ -75,20 +71,19 @@ void Dustbin::throwOutPlasticGarbage(PlasticGarbage plasticGarbage) {
     if(!plasticGarbage.isPlasticClean() || plasticGarbage.getType() != 2){
         throw DustbinContentError();
     }
-    if(garbagePointer < garbageEndPointer) {
-        /*  In this example I do not have to bother with the extra parameter from PlasticGarbage class
-            If I want to extend the PlasticGarbage then it is possible I have to modify this part too.
-         */
-        *garbagePointer = plasticGarbage;
-        ++garbagePointer;
+    if(plasticGarbagePointer < plasticGarbageEndPointer) {
+        *plasticGarbagePointer = plasticGarbage;
+        ++plasticGarbagePointer;
         return;
     }
     throw DustbinContentError();
 }
 
 void Dustbin::emptyContents() {
-    while(garbagePointer > garbage){
-        --garbagePointer;
-    }
-    std::cout << ">  Dustbin emptied, size: " << sizeGarbage() << ", space left: " << spaceLeft() << std::endl;
+    garbagePointer = garbage;
+    paperGarbagePointer = paperGarbage;
+    plasticGarbagePointer = plasticGarbage;
+    std::cout << ">  Dustbin emptied, garbage size: " << sizeGarbage() << ", space left: " << spaceLeftGarbage() << std::endl;
+    std::cout << ">  Dustbin emptied, paper size: " << sizePaperGarbage() << ", space left: " << spaceLeftPaper() << std::endl;
+    std::cout << ">  Dustbin emptied, plastic size: " << sizePlasticGarbage() << ", space left: " << spaceLeftPlastic() << std::endl;
 }
