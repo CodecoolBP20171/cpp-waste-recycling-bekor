@@ -10,8 +10,15 @@
 
 class PaperGarbage: public Garbage {
 public:
-    bool isSqueezed;
+    PaperGarbage(const std::string &name = "defaultPaper") : Garbage(name){
+        type = 2;
+        isSqueezed = false;
+    }
     void squeeze(){isSqueezed = true;}
+    bool isPaperSqueezed(){ return isSqueezed; }
+
+private:
+    bool isSqueezed;
 };
 
 

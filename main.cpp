@@ -1,8 +1,9 @@
 #include <iostream>
-
+#include "DustbinTests.hpp"
 int main() {
-    int number = 2;
-    std::cout<< number <<std::endl;
-    std::cout<<number<<std::endl;
+
+    DustbinTests t;
+    t.run();
+
     return 0;
 }

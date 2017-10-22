@@ -11,8 +11,14 @@
 
 class PlasticGarbage: public Garbage {
 public:
-    bool isClean;
+    PlasticGarbage(const std::string &name = "defaultPlastic"): Garbage(name){
+        type = 3;
+    }
     void clean() {isClean = true;}
+    bool isPlasticClean(){ return isClean; }
+
+protected:
+    bool isClean;
 };
 
 

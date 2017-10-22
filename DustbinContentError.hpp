@@ -9,7 +9,7 @@
 
 class DustbinContentError: public std::exception {
 public:
-    virtual const char* what() const noexcept{
+    const char* what() const noexcept override {
         return "Error: The dustbin is content is not well formatted!";
     }
 };

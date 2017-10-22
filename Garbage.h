@@ -10,6 +10,12 @@
 
 class Garbage {
 public:
+    Garbage(const std::string &name = "defaultGarbage"): name(name){
+        type = 1;
+    };
+    int getType() { return  type; }
+protected:
+    int type;
     std::string name;
 };
 
